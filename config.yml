@@ -1,0 +1,34 @@
+profiles:
+    method: include
+    profiles:
+        - testProfile
+        - otherProfile
+
+fieldPermissions:
+    Entitlement:
+        - field: Hours_Before_Gates_Open__c
+          editable: true
+          readable: true
+    ServiceAppointment:
+        - field: Event_Start__c
+          editable: false
+          readable: true
+        - field: Home_Team__c
+          editable: true
+          readable: true
+        - field: Opponent__c
+          editable: true
+          readable: true
+        - field: Regional_Notes__c
+          editable: false
+          readable: true
+        - field: Special_Instructions__c
+          editable: true
+          readable: true
+        - field: Access_Details__c
+          editable: false
+          readable: true
+    Task:
+        - field: Service_Territory__c
+          editable: true
+          readable: true

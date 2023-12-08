@@ -1,0 +1,34 @@
+{
+    "name": "pryfile",
+    "version": "1.0.0",
+    "description": "",
+    "main": "pryfile.js",
+    "type": "module",
+    "scripts": {
+        "start": "node pryfile.js",
+        "format": "./node_modules/.bin/prettier --write 'profiles/*.xml'"
+    },
+    "author": "Josh Saterdalen <josh@saterdalen.me> (https://github.com/JSaterdalen)",
+    "license": "ISC",
+    "dependencies": {
+        "@prettier/plugin-xml": "^3.2.2",
+        "commander": "^11.1.0",
+        "prettier": "^3.1.0",
+        "yaml": "^2.3.4"
+    },
+    "prettier": {
+        "overrides": [
+            {
+                "files": "*.xml",
+                "options": {
+                    "plugins": [
+                        "@prettier/plugin-xml"
+                    ],
+                    "xmlWhitespaceSensitivity": "preserve"
+                }
+            }
+        ],
+        "tabWidth": 4,
+        "useTabs": false
+    }
+}

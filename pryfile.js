@@ -4,6 +4,8 @@ import xml2js from "xml2js";
 import * as prettier from "prettier";
 import { parse } from "yaml";
 
+const profileDir = "force-app/main/default/profiles";
+
 // set prettier options
 const prettierOptions = {
     tabWidth: 4,
@@ -45,7 +47,7 @@ async function main() {
 async function formatProfiles() {
     // for each profile, format the XML
     for (const profile of profiles) {
-        const profilePath = `profiles/${profile}.xml`;
+        const profilePath = `${profileDir}/${profile}.xml`;
         // read file
         const text = fs.readFileSync(profilePath, "utf-8");
         // format XML using prettier
@@ -59,7 +61,7 @@ async function formatProfiles() {
 async function updateProfiles() {
     for (const profile of profiles) {
         // read XML from a file
-        const profilePath = `profiles/${profile}.xml`;
+        const profilePath = `${profileDir}/${profile}.xml`;
         const file = fs.readFileSync(profilePath, "utf-8");
 
         // parse XML to JS object

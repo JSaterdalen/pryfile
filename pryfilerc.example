@@ -1,0 +1,19 @@
+profiles:
+  # profiles listed here will be modified
+  profiles:
+    - testProfile
+    - otherProfile
+
+fieldPermissions:
+  # fields to be added/updated
+  Entitlement:
+    - field: MyField__c
+      editable: true
+      readable: true
+  ServiceAppointment:
+    - field: NewField1__c
+      editable: false
+      readable: true
+    - field: TestField__c
+      editable: false
+      readable: false

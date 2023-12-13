@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "fs";
 import xml2js from "xml2js";
 // import { Command } from "commander";
@@ -16,7 +18,7 @@ const prettierOptions = {
 };
 
 // parse config.yml
-const config = parse(fs.readFileSync("pryfile.yml", "utf-8"));
+const config = parse(fs.readFileSync(".pryfilerc", "utf-8"));
 const objects = config.fieldPermissions;
 const profiles = config.profiles.profiles;
 // const profileMethod = config.profiles.method;

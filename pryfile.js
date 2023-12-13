@@ -16,7 +16,7 @@ const prettierOptions = {
 };
 
 // parse config.yml
-const config = parse(fs.readFileSync("config.yml", "utf-8"));
+const config = parse(fs.readFileSync("pryfile.yml", "utf-8"));
 const objects = config.fieldPermissions;
 const profiles = config.profiles.profiles;
 // const profileMethod = config.profiles.method;

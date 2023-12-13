@@ -1,5 +1,4 @@
 profiles:
-    method: include
     profiles:
         - testProfile
         - otherProfile

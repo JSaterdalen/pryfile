@@ -19,7 +19,7 @@ const prettierOptions = {
 const config = parse(fs.readFileSync("config.yml", "utf-8"));
 const objects = config.fieldPermissions;
 const profiles = config.profiles.profiles;
-const profileMethod = config.profiles.method;
+// const profileMethod = config.profiles.method;
 
 // build newFields array
 let newFields = [];

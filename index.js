@@ -49,7 +49,7 @@ async function main() {
 async function formatProfiles() {
     // for each profile, format the XML
     for (const profile of profiles) {
-        const profilePath = `${profileDir}/${profile}.xml`;
+        const profilePath = `${profileDir}/${profile}.profile-meta.xml`;
         // read file
         const text = fs.readFileSync(profilePath, "utf-8");
         // format XML using prettier
@@ -63,7 +63,7 @@ async function formatProfiles() {
 async function updateProfiles() {
     for (const profile of profiles) {
         // read XML from a file
-        const profilePath = `${profileDir}/${profile}.xml`;
+        const profilePath = `${profileDir}/${profile}.profile-meta.xml`;
         const file = fs.readFileSync(profilePath, "utf-8");
 
         // parse XML to JS object

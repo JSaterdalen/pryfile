@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 
+import { Command } from "commander";
 import fs from "fs";
-import xml2js from "xml2js";
-// import { Command } from "commander";
 import * as prettier from "prettier";
+import xml2js from "xml2js";
 import { parse } from "yaml";
+import { error, say, success } from "./src/chalk.js";
+import { makeConfig } from "./src/commands/config.js";
 
 const profileDir = "force-app/main/default/profiles";
+const configFile = ".pryfilerc";
+let objects = [];
+let profiles = [];
+let newFields = [];
 
 // set prettier options
 const prettierOptions = {
@@ -17,32 +23,55 @@ const prettierOptions = {
     parser: "xml",
 };
 
-// parse config.yml
-const config = parse(fs.readFileSync(".pryfilerc", "utf-8"));
-const objects = config.fieldPermissions;
-const profiles = config.profiles.profiles;
-// const profileMethod = config.profiles.method;
+const program = new Command();
+program
+    .command("config")
+    .description("Create example config file in the current project")
+    .action(makeConfig);
 
-// build newFields array
-let newFields = [];
-for (const obj in objects) {
-    objects[obj].forEach((item) => {
-        let f = {
-            editable: item.editable,
-            field: `${obj}.${item.field}`,
-            readable: item.readable,
-        };
-        newFields.push(f);
-    });
-}
+program.command("run").description("Apply changes to profiles").action(main);
 
-// if newFields isn't empty, run main()
-if (newFields.length > 0) {
-    main();
-}
+program.parse();
 
 async function main() {
+    parseConfig();
+    getFields();
     await updateProfiles();
+}
+
+function parseConfig() {
+    if (!fs.existsSync(configFile)) {
+        error("No config file found.");
+        say("Please run `pryfile config` to create an example.");
+        process.exit(1);
+    }
+    // parse config.yml
+    const config = parse(fs.readFileSync(configFile, "utf-8"));
+    objects = config.fieldPermissions;
+    if (!objects) {
+        error("No objects found in config.");
+        process.exit(1);
+    }
+    profiles = config.profiles.profiles;
+    if (!profiles) {
+        error("No profiles found in config.");
+        process.exit(1);
+    }
+    // const profileMethod = config.profiles.method;
+}
+
+function getFields() {
+    // build newFields array
+    for (const obj in objects) {
+        objects[obj].forEach((item) => {
+            let f = {
+                editable: item.editable,
+                field: `${obj}.${item.field}`,
+                readable: item.readable,
+            };
+            newFields.push(f);
+        });
+    }
 }
 
 // run prettier on selected profiles
@@ -61,6 +90,7 @@ async function formatProfiles() {
 
 // modify selected profiles
 async function updateProfiles() {
+    console.log("Updating profiles...");
     for (const profile of profiles) {
         // read XML from a file
         const profilePath = `${profileDir}/${profile}.profile-meta.xml`;
@@ -113,3 +143,5 @@ async function updateProfiles() {
     // format all profiles
     await formatProfiles();
 }
+
+export { main };

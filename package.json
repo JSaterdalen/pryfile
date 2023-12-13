@@ -5,12 +5,16 @@
     "main": "pryfile.js",
     "type": "module",
     "scripts": {
-        "start": "node pryfile.js"
+        "start": "node index.js"
     },
     "author": "Josh Saterdalen <josh@saterdalen.me> (https://github.com/JSaterdalen)",
     "license": "ISC",
+    "bin": {
+        "pryfile": "./index.js"
+    },
     "dependencies": {
         "@prettier/plugin-xml": "^3.2.2",
+        "chalk": "^5.3.0",
         "commander": "^11.1.0",
         "prettier": "^3.1.0",
         "yaml": "^2.3.4"

@@ -1,33 +1,19 @@
 profiles:
+    # profiles listed here will be modified
     profiles:
         - testProfile
         - otherProfile
 
 fieldPermissions:
+    # fields to be added/updated
     Entitlement:
-        - field: Hours_Before_Gates_Open__c
+        - field: MyField__c
           editable: true
           readable: true
     ServiceAppointment:
-        - field: Event_Start__c
+        - field: NewField1__c
           editable: false
           readable: true
-        - field: Home_Team__c
-          editable: true
-          readable: true
-        - field: Opponent__c
-          editable: true
-          readable: true
-        - field: Regional_Notes__c
+        - field: TestField__c
           editable: false
-          readable: true
-        - field: Special_Instructions__c
-          editable: true
-          readable: true
-        - field: Access_Details__c
-          editable: false
-          readable: true
-    Task:
-        - field: Service_Territory__c
-          editable: true
-          readable: true
+          readable: false

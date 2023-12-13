@@ -5,8 +5,7 @@
     "main": "pryfile.js",
     "type": "module",
     "scripts": {
-        "start": "node pryfile.js",
-        "format": "./node_modules/.bin/prettier --write 'profiles/*.xml'"
+        "start": "node pryfile.js"
     },
     "author": "Josh Saterdalen <josh@saterdalen.me> (https://github.com/JSaterdalen)",
     "license": "ISC",

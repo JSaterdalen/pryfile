@@ -2,6 +2,16 @@
     "name": "pryfile",
     "version": "1.0.0",
     "description": "",
+    "keywords": [
+        "pryfile",
+        "profile",
+        "salesforce",
+        "sfdx"
+    ],
+    "homepage": "https://github.com/JSaterdalen/pryfile",
+    "bugs": {
+        "url": "https://github.com/JSaterdalen/pryfile/issues"
+    },
     "main": "pryfile.js",
     "type": "module",
     "scripts": {
@@ -12,11 +22,16 @@
     "bin": {
         "pryfile": "index.js"
     },
+    "repository": {
+        "type": "git",
+        "url": "github:JSaterdalen/pryfile"
+    },
     "dependencies": {
         "@prettier/plugin-xml": "^3.2.2",
         "chalk": "^5.3.0",
         "commander": "^11.1.0",
         "prettier": "^3.1.0",
+        "xml2js": "^0.6.2",
         "yaml": "^2.3.4"
     },
     "prettier": {

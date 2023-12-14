@@ -5,7 +5,7 @@ function say(message) {
 }
 
 function success(message) {
-    console.log(chalk.bgGreen.black(message));
+    console.log(chalk.green(message));
 }
 
 function error(message) {

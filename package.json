@@ -20,6 +20,8 @@
         "yaml": "^2.3.4"
     },
     "prettier": {
+        "tabWidth": 4,
+        "useTabs": false,
         "overrides": [
             {
                 "files": "*.xml",
@@ -31,13 +33,14 @@
                 }
             },
             {
-                "files": "*.yml",
+                "files": [
+                    "*.yml",
+                    ".pryfilerc"
+                ],
                 "options": {
                     "tabWidth": 2
                 }
             }
-        ],
-        "tabWidth": 4,
-        "useTabs": false
+        ]
     }
 }

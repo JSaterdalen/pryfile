@@ -23,6 +23,12 @@ Verify install
 
 !["pryfile -h" terminal output](images/screen-pryfile-h.png)
 
+Due to a bug using prettier plugins as a dependency, you'll have to install it in your SFDX project for now.
+
+```bash
+  npm i @prettier/plugin-xml
+```
+
 ## Usage
 
 pryfile is to be used from within an SFDX project directory. It's easiest to open a project in VS Code, then open the embedded terminal (`ctr`/`cmd`+`j`).

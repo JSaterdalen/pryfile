@@ -10,6 +10,7 @@ import { makeConfig } from "./src/commands/config.js";
 
 const profileDir = "force-app/main/default/profiles";
 const configFile = ".pryfilerc";
+let config = {};
 let objects = [];
 let profiles = [];
 let newFields = [];
@@ -29,38 +30,63 @@ program
     .description("Create example config file in the current project")
     .action(makeConfig);
 
-program.command("run").description("Apply changes to profiles").action(main);
+program.description("Apply changes to profiles").action(main);
+
+program
+    .command("format")
+    .description("Format selected profiles")
+    .option("-a, --all", "Format all profiles, regardless of config")
+    .action((options) => {
+        format(options);
+    });
 
 program.parse();
 
 async function main() {
-    parseConfig();
-    getFields();
+    getSelectedProfiles();
+    getFieldPermissions();
     await updateProfiles();
+    success("Profiles have been updated!");
 }
 
-function parseConfig() {
-    if (!fs.existsSync(configFile)) {
-        error("No config file found.");
-        say("Please run `pryfile config` to create an example.");
+function format(options) {
+    if (options.all) {
+        // get list of profiles from force-app/main/default/profiles
+        profiles = fs.readdirSync("force-app/main/default/profiles");
+        // for each profile, remove .profile-meta.xml from the end
+        profiles.forEach((profile, index) => {
+            profiles[index] = profile.replace(".profile-meta.xml", "");
+        });
+    } else {
+        getSelectedProfiles();
+    }
+    formatProfiles();
+    success("Profiles have been formatted!");
+}
+
+function getSelectedProfiles() {
+    checkConfig();
+    if (Object.keys(config).length === 0 && config.constructor === Object) {
+        config = parse(fs.readFileSync(configFile, "utf-8"));
+    }
+    profiles = config.profiles.profiles;
+    if (!profiles) {
+        error("No profiles specified in config.");
         process.exit(1);
     }
-    // parse config.yml
-    const config = parse(fs.readFileSync(configFile, "utf-8"));
+}
+
+function getFieldPermissions() {
+    checkConfig();
+    if (Object.keys(config).length === 0 && config.constructor === Object) {
+        config = parse(fs.readFileSync(configFile, "utf-8"));
+    }
     objects = config.fieldPermissions;
     if (!objects) {
         error("No objects found in config.");
         process.exit(1);
     }
-    profiles = config.profiles.profiles;
-    if (!profiles) {
-        error("No profiles found in config.");
-        process.exit(1);
-    }
-    // const profileMethod = config.profiles.method;
-}
 
-function getFields() {
     // build newFields array
     for (const obj in objects) {
         objects[obj].forEach((item) => {
@@ -71,6 +97,14 @@ function getFields() {
             };
             newFields.push(f);
         });
+    }
+}
+
+function checkConfig() {
+    if (!fs.existsSync(configFile)) {
+        error("No config file found.");
+        say("Please run `pryfile config` to create an example.");
+        process.exit(1);
     }
 }
 

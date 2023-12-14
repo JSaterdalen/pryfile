@@ -22,6 +22,7 @@ const prettierOptions = {
     xmlWhitespaceSensitivity: "preserve",
     plugins: ["@prettier/plugin-xml"],
     parser: "xml",
+    printWidth: 1000,
 };
 
 const program = new Command();
@@ -149,8 +150,8 @@ async function updateProfiles() {
 
         // sort fieldPermissions by field name
         fieldPermissions.sort((a, b) => {
-            const fieldA = a.field.toUpperCase();
-            const fieldB = b.field.toUpperCase();
+            const fieldA = a.field;
+            const fieldB = b.field;
             if (fieldA < fieldB) {
                 return -1;
             }

@@ -10,7 +10,7 @@
     "author": "Josh Saterdalen <josh@saterdalen.me> (https://github.com/JSaterdalen)",
     "license": "ISC",
     "bin": {
-        "pryfile": "./index.js"
+        "pryfile": "index.js"
     },
     "dependencies": {
         "@prettier/plugin-xml": "^3.2.2",

@@ -1,5 +1,7 @@
 # pryfile.js
 
+[![NPM Version](http://img.shields.io/npm/v/pryfile)](https://www.npmjs.org/package/pryfile)
+
 ## Installation
 
 ### Dependencies

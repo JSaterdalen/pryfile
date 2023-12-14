@@ -7,11 +7,9 @@ import YAML from "yaml";
 import { error, say, success } from "../chalk.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const configFile = `${__dirname}/../../pryfilerc.example`;
+const configFile = `${__dirname}/../../templates/pryfilerc.example`;
 
 function makeConfig() {
-    // fs.copyFileSync(configFile, ".pryfilerc");
-
     const config = YAML.parse(fs.readFileSync(configFile, "utf-8"));
     config.profiles.profiles = [];
 

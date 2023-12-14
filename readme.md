@@ -25,6 +25,8 @@ Verify install
 
 Due to a bug using prettier plugins as a dependency, you'll have to install it in your SFDX project for now.
 
+**Run this from inside your SFDX project directory!!**
+
 ```bash
   npm i @prettier/plugin-xml
 ```

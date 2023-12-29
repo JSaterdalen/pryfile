@@ -41,7 +41,11 @@ program
         format(options);
     });
 
+program.option("-s, --sort", "Sort the entire file alphabetically.");
+
 program.parse();
+
+const options = program.opts();
 
 async function main() {
     getSelectedProfiles();
@@ -146,20 +150,14 @@ async function updateProfiles() {
             });
         });
 
-        fieldPermissions.push(...newFields);
-
-        // sort fieldPermissions by field name
-        fieldPermissions.sort((a, b) => {
-            const fieldA = a.field;
-            const fieldB = b.field;
-            if (fieldA < fieldB) {
-                return -1;
+        if (options.sort) {
+            fieldPermissions.push(...newFields);
+            sortArray(fieldPermissions);
+        } else {
+            for (const newField of newFields) {
+                binarySearchInsert(fieldPermissions, newField);
             }
-            if (fieldA > fieldB) {
-                return 1;
-            }
-            return 0;
-        });
+        }
 
         // build JS object to XML
         const builder = new xml2js.Builder({
@@ -177,6 +175,37 @@ async function updateProfiles() {
 
     // format all profiles
     await formatProfiles();
+}
+
+function binarySearchInsert(array, field) {
+    let start = 0;
+    let end = array.length;
+
+    while (start < end) {
+        const mid = Math.floor((start + end) / 2);
+        if (field.field < array[mid].field) {
+            end = mid;
+        } else {
+            start = mid + 1;
+        }
+    }
+
+    array.splice(start, 0, field);
+}
+
+function sortArray(fieldPermissions) {
+    // sort fieldPermissions by field name
+    fieldPermissions.sort((a, b) => {
+        const fieldA = a.field;
+        const fieldB = b.field;
+        if (fieldA < fieldB) {
+            return -1;
+        }
+        if (fieldA > fieldB) {
+            return 1;
+        }
+        return 0;
+    });
 }
 
 export { main };
